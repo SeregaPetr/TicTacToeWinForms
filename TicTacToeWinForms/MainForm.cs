@@ -116,19 +116,21 @@ namespace TicTacToeWinForms
         private static LoginForm UserUpload(string path)
         {
             LoginForm loginForm = new LoginForm();
-            List<string> users = new List<string>();
-
-            using (StreamReader sr = new StreamReader(path))
+            if (File.Exists(path))
             {
-                string str;
-                while ((str = sr.ReadLine()) != null)
-                {
-                    users.Add(str);
-                }
-            }
+                List<string> users = new List<string>();
 
-            loginForm.comboBoxSelectUser.Items.Clear();
-            loginForm.comboBoxSelectUser.Items.AddRange(users.ToArray());
+                using (StreamReader sr = new StreamReader(path))
+                {
+                    string str;
+                    while ((str = sr.ReadLine()) != null)
+                    {
+                        users.Add(str);
+                    }
+                }
+                loginForm.comboBoxSelectUser.Items.Clear();
+                loginForm.comboBoxSelectUser.Items.AddRange(users.ToArray());
+            }
             loginForm.comboBoxSelectUser.Text = "Аноним";
             return loginForm;
         }
